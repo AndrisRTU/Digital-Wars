@@ -143,22 +143,22 @@ void IngameAI::makeMove() {
     });
     */
 
-    Node node;
-    node.parentNode = nullptr;
-    node.openNodes = openNodes;
-    node.condition = scene.getGameCondition();
-    addNode(node, 0);
+    std::unique_ptr<Node> node = std::make_unique<Node>();
+    node->parentNode = nullptr;
+    node->openNodes = openNodes;
+    node->condition = scene.getGameCondition();
+    addNode(*node, 0);
     std::vector<int16_t> nodeValues;
-    for (const auto& availableNode : node.childNodes) {
+    for (const auto& availableNode : node->childNodes) {
         nodeValues.push_back(minimax(*availableNode, 0, false, {-9999, 9999}));
     }
-    Position position = node.childNodes[0]->condition.getPosition();
+    Position position = node->childNodes[0]->condition.getPosition();
     int16_t bestValue = nodeValues[0];
 
-    for (int i = 0; i < node.childNodes.size(); i++) {
+    for (int i = 0; i < node->childNodes.size(); i++) {
         if (nodeValues[i] > bestValue) {
             bestValue = nodeValues[i];
-            position = node.childNodes[i]->condition.getPosition();
+            position = node->childNodes[i]->condition.getPosition();
         }
     }
 
