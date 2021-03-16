@@ -1,18 +1,19 @@
 #ifndef BOARDGAMECELL_H
 #define BOARDGAMECELL_H
-#include <QMetaType>
+#include <cstdint>
+#include <utility>
 
 class GameCell {
 private:
-    qint8 number;
-    using Position = QPair<quint8, quint8>;
+    int8_t number;
+    using Position = std::pair<int8_t, int8_t>;
     Position position;
     bool selected;
 public:
     GameCell(Position& position);
-    qint8 pick();
-    qint8 getNumber() const;
-    QPair<quint8, quint8> getPosition() const;
+    int8_t pick();
+    int8_t getNumber() const;
+    std::pair<int8_t, int8_t> getPosition() const;
     bool isSelected() const;
 };
 

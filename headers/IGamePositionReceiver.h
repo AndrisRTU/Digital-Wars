@@ -1,10 +1,11 @@
 #ifndef IGAMEPOSITIONRECEIVER_H
 #define IGAMEPOSITIONRECEIVER_H
-#include <QPair>
+#include <utility>
+#include <cstdint>
 
 class IGamePositionReceiver {
 public:
-    virtual void receivePosition(QPair<quint8, quint8> position) = 0;
+    virtual void receivePosition(std::pair<int8_t, int8_t> position) = 0;
 };
 
 

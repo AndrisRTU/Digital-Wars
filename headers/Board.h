@@ -1,19 +1,18 @@
 #ifndef BOARD_H
 #define BOARD_H
-#include <QVector>
 #include "IBoard.h"
 
 class Board : public IBoard {
 private:
-    QVector<QVector<GameCell>> board;
-    quint8 size;
+    std::vector<std::vector<GameCell>> board;
+    int8_t size;
     void init();
 public:
-    Board(quint8 size = 5);
-    void newGame(quint8 size);
-    QVector<QVector<GameCell>>& getBoard();
-    const QVector<QVector<GameCell>>& getBoard() const;
-    quint8 getSize() const;
+    Board(int8_t size = 5);
+    void newGame(int8_t size);
+    std::vector<std::vector<GameCell>>& getBoard();
+    const std::vector<std::vector<GameCell>>& getBoard() const;
+    int8_t getSize() const;
 };
 
 #endif // BOARD_H

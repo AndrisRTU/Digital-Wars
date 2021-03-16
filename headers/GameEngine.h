@@ -15,7 +15,7 @@ private:
     bool checkForMoves();
 public:
     GameEngine(GameScene& scene, IIngameAI& AI, IGameStatsListener& statsListener, IGameSettingsBox& msgBox);
-    virtual void cellSelected(QPair<qint8, qint8> position) override;
+    virtual void cellSelected(std::pair<int8_t, int8_t> position) override;
     virtual void newGameStarted() override;
 };
 

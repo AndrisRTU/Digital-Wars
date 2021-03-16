@@ -16,7 +16,7 @@ public:
     long long getPlayerWins() const;
     long long getEnemyWins() const;
     void gameEnded();
-    virtual void startNewGame(NewGameState state, quint8 size) override;
+    virtual void startNewGame(NewGameState state, int8_t size) override;
     IBoard& getBoard();
     const IBoard& getBoard() const;
     const IGameConditionMembers& getGameConditionMembers() const;
