@@ -44,6 +44,7 @@ void GameEngine::cellSelected(std::pair<int8_t, int8_t> position) {
         scene.gameEnded();
         statsListener.gameEnded();
         msgBox.awake();
+        return;
     }
 
     if (scene.getGameConditionMembers().getTurn() == GameTurn::AITurn) {
