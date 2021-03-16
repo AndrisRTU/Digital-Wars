@@ -21,7 +21,7 @@ void IngameAI::setDifficulty(int8_t difficulty) {
 int16_t IngameAI::scoreDifferenceHeuristic(const Node &node) {
     return node.condition.getAIScore() - node.condition.getPlayerScore();
 }
-#include <QMessageBox>
+
 int16_t IngameAI::NodeSequenceHeuristic(const Node& node, int8_t depth) {
     if (!node.parentNode || depth == foresightCount) {
         return 0;
