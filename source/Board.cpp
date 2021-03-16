@@ -1,6 +1,6 @@
 #include "Board.h"
 
-Board::Board(quint8 size) :
+Board::Board(int8_t size) :
     size(size) {
     init();
 }
@@ -10,7 +10,7 @@ void Board::init() {
     board.resize(size);
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            QPair<quint8, quint8> position;
+            std::pair<int8_t, int8_t> position(i, j);
             position.first = i;
             position.second = j;
             board[i].push_back(GameCell(position));
@@ -18,19 +18,19 @@ void Board::init() {
     }
 }
 
-void Board::newGame(quint8 size) {
+void Board::newGame(int8_t size) {
     this->size = size;
     init();
 }
 
-QVector<QVector<GameCell>>& Board::getBoard() {
+std::vector<std::vector<GameCell>>& Board::getBoard() {
     return board;
 }
 
-const QVector<QVector<GameCell>>& Board::getBoard() const {
+const std::vector<std::vector<GameCell>>& Board::getBoard() const {
     return board;
 }
 
-quint8 Board::getSize() const {
+int8_t Board::getSize() const {
     return size;
 }

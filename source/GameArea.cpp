@@ -12,14 +12,14 @@ void GameArea::setGameEngine(IGameEngine* engine) {
 
 void GameArea::update() {
     if (scene.getGameConditionMembers().getMovement() == Movement::Horizontal) {
-        quint8 x = scene.getGameConditionMembers().getPosition().first;
+        int8_t x = scene.getGameConditionMembers().getPosition().first;
         for (int i = 0; i < cells.size(); i++) {
             cells[x][i]->awake();
             connect(cells[x][i], &QPushButton::clicked, this, &GameArea::onClick);
         }
     }
     else {
-        quint8 y = scene.getGameConditionMembers().getPosition().second;
+        int8_t y = scene.getGameConditionMembers().getPosition().second;
         for (int i = 0; i < cells.size(); i++) {
             cells[i][y]->awake();
             connect(cells[i][y], &QPushButton::clicked, this, &GameArea::onClick);
@@ -29,14 +29,14 @@ void GameArea::update() {
 
 void GameArea::diactivateCells() {
     if (scene.getGameConditionMembers().getMovement() == Movement::Horizontal) {
-        quint8 x = scene.getGameConditionMembers().getPosition().first;
+        int8_t x = scene.getGameConditionMembers().getPosition().first;
         for (int i = 0; i < cells.size(); i++) {
             cells[x][i]->diactivate();
             disconnect(cells[x][i], &QPushButton::clicked, this, &GameArea::onClick);
         }
     }
     else {
-        quint8 y = scene.getGameConditionMembers().getPosition().second;
+        int8_t y = scene.getGameConditionMembers().getPosition().second;
         for (int i = 0; i < cells.size(); i++) {
             cells[i][y]->diactivate();
             disconnect(cells[i][y], &QPushButton::clicked, this, &GameArea::onClick);
@@ -72,7 +72,7 @@ void GameArea::reset() {
     }
 }
 
-void GameArea::receivePosition(QPair<quint8, quint8> position) {
+void GameArea::receivePosition(std::pair<int8_t, int8_t> position) {
     cells[position.first][position.second]->pressed();
 }
 

@@ -7,16 +7,16 @@ GameCell::GameCell(Position& position) :
     number = getRandomNumber(-9, 9);
 }
 
-qint8 GameCell::pick() {
+int8_t GameCell::pick() {
     selected = true;
     return number;
 }
 
-qint8 GameCell::getNumber() const {
+int8_t GameCell::getNumber() const {
     return number;
 }
 
-QPair<quint8, quint8> GameCell::getPosition() const {
+std::pair<int8_t, int8_t> GameCell::getPosition() const {
     return position;
 }
 

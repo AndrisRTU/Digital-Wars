@@ -8,9 +8,9 @@ GameEngine::GameEngine(GameScene& scene, IIngameAI& AI, IGameStatsListener& stat
 }
 
 bool GameEngine::checkForMoves() {
-    const QVector<QVector<GameCell>>& cells = scene.getBoard().getBoard();
+    const std::vector<std::vector<GameCell>>& cells = scene.getBoard().getBoard();
     if (scene.getGameConditionMembers().getMovement() == Movement::Horizontal) {
-        quint8 x = scene.getGameConditionMembers().getPosition().first;
+        int8_t x = scene.getGameConditionMembers().getPosition().first;
         for (int i = 0; i < cells.size(); i++) {
             if (!cells[x][i].isSelected()) {
                 return true;
@@ -18,7 +18,7 @@ bool GameEngine::checkForMoves() {
         }
     }
     else {
-        quint8 y = scene.getGameConditionMembers().getPosition().second;
+        int8_t y = scene.getGameConditionMembers().getPosition().second;
         for (int i = 0; i < cells.size(); i++) {
             if (!cells[i][y].isSelected()) {
                 return true;
@@ -28,10 +28,10 @@ bool GameEngine::checkForMoves() {
     return false;
 }
 
-void GameEngine::cellSelected(QPair<qint8, qint8> position) {
-    const quint8 x = position.first;
-    const quint8 y = position.second;
-    QVector<QVector<GameCell>>& cells = scene.getBoard().getBoard();
+void GameEngine::cellSelected(std::pair<int8_t, int8_t> position) {
+    const int8_t x = position.first;
+    const int8_t y = position.second;
+    std::vector<std::vector<GameCell>>& cells = scene.getBoard().getBoard();
 
     scene.getGameConditionChanger().scoreChanged(cells[x][y].pick());
     statsListener.clearCondition();
