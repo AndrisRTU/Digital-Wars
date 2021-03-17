@@ -1,5 +1,4 @@
 #include "BoardCell.h"
-#include <QApplication>
 
 BoardCell::BoardCell(const GameCell& cell, const IGameConditionMembers& gameCondition, IGameEngine& listener) :
     cell(cell),

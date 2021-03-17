@@ -1,6 +1,6 @@
 #include "GameEngine.h"
 
-GameEngine::GameEngine(GameScene& scene, IIngameAI& AI, IGameStatsListener& statsListener, IGameSettingsBox& msgBox) :
+GameEngine::GameEngine(GameScene& scene, IngameAI& AI, IGameStatsListener& statsListener, IGameSettingsBox& msgBox) :
     scene(scene),
     AI(AI),
     statsListener(statsListener),
@@ -28,7 +28,7 @@ bool GameEngine::checkForMoves() {
     return false;
 }
 
-void GameEngine::cellSelected(std::pair<int8_t, int8_t> position) {
+void GameEngine::updateScene(Position position) {
     const int8_t x = position.first;
     const int8_t y = position.second;
     std::vector<std::vector<GameCell>>& cells = scene.getBoard().getBoard();
@@ -39,6 +39,10 @@ void GameEngine::cellSelected(std::pair<int8_t, int8_t> position) {
     scene.getGameConditionChanger().positionChanged(position);
     scene.getGameConditionChanger().movementChanged();
     statsListener.updateCondition();
+}
+
+void GameEngine::cellSelected(Position position) {
+    updateScene(position);
 
     if (!checkForMoves()) {
         scene.gameEnded();

@@ -16,7 +16,7 @@ int8_t GameCell::getNumber() const {
     return number;
 }
 
-std::pair<int8_t, int8_t> GameCell::getPosition() const {
+std::pair<uint8_t, uint8_t> GameCell::getPosition() const {
     return position;
 }
 

@@ -37,7 +37,7 @@ void GameCondition::movementChanged(){
     }
 }
 
-void GameCondition::positionChanged(std::pair<int8_t,int8_t>position) {
+void GameCondition::positionChanged(std::pair<uint8_t,uint8_t>position) {
     this->position = position;
 }
 
@@ -46,7 +46,7 @@ void GameCondition::gameEnded() {
     playerScore = 0;
 }
 
-void GameCondition::startNewGame(NewGameState state, int8_t size) {
+void GameCondition::startNewGame(NewGameState state, uint8_t size) {
     if (state == NewGameState::Random) {
         if (getRandomNumber(0, 1) == 0) {
             turn = GameTurn::PlayerTurn;
@@ -89,6 +89,6 @@ Movement GameCondition::getMovement() const {
     return movement;
 }
 
-std::pair<int8_t,int8_t> GameCondition::getPosition() const {
+std::pair<uint8_t,uint8_t> GameCondition::getPosition() const {
     return position;
 }

@@ -26,7 +26,7 @@ void GameScene::gameEnded() {
     condition->gameEnded();
 }
 
-void GameScene::startNewGame(NewGameState state, int8_t size) {
+void GameScene::startNewGame(NewGameState state, uint8_t size) {
     board->newGame(size);
     condition->startNewGame(state, size);
 }

@@ -5,14 +5,14 @@ int getElementPlainVector(int x, int y, int size) {
     return x * size + y;
 }
 
-IngameAI::IngameAI(int8_t difficulty, const GameScene& scene, IGamePositionReceiver& receiver) :
+IngameAI::IngameAI(uint8_t difficulty, const GameScene& scene, IGamePositionReceiver& receiver) :
     difficulty(difficulty),
     scene(scene),
     receiver(receiver),
     foresightCount(difficulty) {
 }
 
-void IngameAI::setDifficulty(int8_t difficulty) {
+void IngameAI::setDifficulty(uint8_t difficulty) {
     this->difficulty = difficulty;
     foresightCount = difficulty;
 }
@@ -22,7 +22,7 @@ int16_t IngameAI::scoreDifferenceHeuristic(const Node &node) {
     return node.condition.getAIScore() - node.condition.getPlayerScore();
 }
 
-int16_t IngameAI::NodeSequenceHeuristic(const Node& node, int8_t depth) {
+int16_t IngameAI::NodeSequenceHeuristic(const Node& node, uint8_t depth) {
     if (!node.parentNode || depth == foresightCount) {
         return 0;
     }
@@ -44,7 +44,7 @@ int16_t IngameAI::NodeSequenceHeuristic(const Node& node, int8_t depth) {
     }
 }
 
-int16_t IngameAI::minimax(const Node& node, int8_t depth, bool isMax, AlphaBetaModule alphaBeta) {
+int16_t IngameAI::minimax(const Node& node, uint8_t depth, bool isMax, AlphaBetaModule alphaBeta) {
     if (node.childNodes.size() == 0) {
         return scoreDifferenceHeuristic(node) + NodeSequenceHeuristic(node, depth);
     }
@@ -75,23 +75,23 @@ int16_t IngameAI::minimax(const Node& node, int8_t depth, bool isMax, AlphaBetaM
     }
 }
 
-void IngameAI::addNode(Node& node, int8_t depth) {
+void IngameAI::addNode(Node& node, uint8_t depth) {
     if (depth == foresightCount) {
         return;
     }
     depth++;
-    const int8_t x = node.condition.getPosition().first;
-    const int8_t y = node.condition.getPosition().second;
-    const int8_t size = scene.getBoard().getSize();
+    const uint8_t x = node.condition.getPosition().first;
+    const uint8_t y = node.condition.getPosition().second;
+    const uint8_t size = scene.getBoard().getSize();
     if (node.condition.getMovement() == Movement::Horizontal) {
-        for (int8_t i = 0; i < size; i++) {
+        for (uint8_t i = 0; i < size; i++) {
             if (node.openNodes[getElementPlainVector(x, i, size)]) {
                 std::unique_ptr<Node> newNode = std::make_unique<Node>();
                 newNode->openNodes = node.openNodes;
                 newNode->condition = node.condition;
                 newNode->addParentNode(node);
                 newNode->openNodes[getElementPlainVector(x, i, size)] = false;
-                const int16_t number = scene.getBoard().getBoard()[x][i].getNumber();
+                const int8_t number = scene.getBoard().getBoard()[x][i].getNumber();
                 newNode->condition.scoreChanged(number);
                 newNode->condition.gameTurnChanged();
                 newNode->condition.movementChanged();
@@ -102,14 +102,14 @@ void IngameAI::addNode(Node& node, int8_t depth) {
         }
     }
     else {
-        for (int8_t i = 0; i < size; i++) {
+        for (uint8_t i = 0; i < size; i++) {
             if (node.openNodes[getElementPlainVector(i, y, size)]) {
                 std::unique_ptr<Node> newNode = std::make_unique<Node>();
                 newNode->openNodes = node.openNodes;
                 newNode->condition = node.condition;
                 newNode->addParentNode(node);
                 newNode->openNodes[getElementPlainVector(i, y, size)] = false;
-                const int16_t number = scene.getBoard().getBoard()[i][y].getNumber();
+                const int8_t number = scene.getBoard().getBoard()[i][y].getNumber();
                 newNode->condition.scoreChanged(number);
                 newNode->condition.gameTurnChanged();
                 newNode->condition.movementChanged();
