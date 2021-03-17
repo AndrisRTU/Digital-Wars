@@ -9,13 +9,15 @@
 class GameEngine : public IGameEngine {
 private:
     GameScene& scene;
-    IIngameAI& AI;
+    IngameAI& AI;
     IGameStatsListener& statsListener;
     IGameSettingsBox& msgBox;
     bool checkForMoves();
+    using Position = std::pair<uint8_t, uint8_t>;
+    void updateScene(Position position);
 public:
-    GameEngine(GameScene& scene, IIngameAI& AI, IGameStatsListener& statsListener, IGameSettingsBox& msgBox);
-    virtual void cellSelected(std::pair<int8_t, int8_t> position) override;
+    GameEngine(GameScene& scene, IngameAI& AI, IGameStatsListener& statsListener, IGameSettingsBox& msgBox);
+    virtual void cellSelected(Position position) override;
     virtual void newGameStarted() override;
 };
 

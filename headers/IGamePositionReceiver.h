@@ -5,7 +5,7 @@
 
 class IGamePositionReceiver {
 public:
-    virtual void receivePosition(std::pair<int8_t, int8_t> position) = 0;
+    virtual void receivePosition(std::pair<uint8_t, uint8_t> position) = 0;
 };
 
 

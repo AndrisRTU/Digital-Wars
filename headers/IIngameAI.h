@@ -4,7 +4,7 @@
 
 class IIngameAI {
 public:
-    virtual void setDifficulty(int8_t difficulty) = 0;
+    virtual void setDifficulty(uint8_t difficulty) = 0;
     virtual void makeMove() = 0;
 };
 

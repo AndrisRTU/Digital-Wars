@@ -20,7 +20,7 @@ public:
     void diactivateCells();
     void clear();
     void reset();
-    virtual void receivePosition(std::pair<int8_t, int8_t> position) override;
+    virtual void receivePosition(std::pair<uint8_t, uint8_t> position) override;
 signals:
     void onClick();
 };

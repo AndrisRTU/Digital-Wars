@@ -10,7 +10,7 @@ public:
     virtual int getAIScore() const = 0;
     virtual GameTurn getTurn() const = 0;
     virtual Movement getMovement() const = 0;
-    virtual std::pair<int8_t, int8_t> getPosition() const = 0;
+    virtual std::pair<uint8_t, uint8_t> getPosition() const = 0;
 };
 
 

@@ -5,7 +5,7 @@
 
 class IGameEngine {
 public:
-    virtual void cellSelected(std::pair<int8_t, int8_t> position) = 0;
+    virtual void cellSelected(std::pair<uint8_t, uint8_t> position) = 0;
     virtual void newGameStarted() = 0;
 };
 

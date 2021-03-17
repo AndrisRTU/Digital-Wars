@@ -4,7 +4,7 @@
 
 class IGameScene {
 public:
-    virtual void startNewGame(NewGameState state, int8_t size) = 0;
+    virtual void startNewGame(NewGameState state, uint8_t size) = 0;
 };
 
 
