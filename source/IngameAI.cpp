@@ -5,10 +5,9 @@ int getElementPlainVector(int x, int y, int size) {
     return x * size + y;
 }
 
-IngameAI::IngameAI(uint8_t difficulty, const GameScene& scene, VisualGameArea& receiver) :
+IngameAI::IngameAI(uint8_t difficulty, const GameScene& scene) :
     foresightCount(foresightCount),
-    scene(scene),
-    receiver(receiver) {
+    scene(scene) {
 
 }
 
