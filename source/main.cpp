@@ -4,7 +4,6 @@
 #include "GameScoreArea.h"
 #include "VisualGameArea.h"
 #include "GameEngine.h"
-//#include ".h"
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
