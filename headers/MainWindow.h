@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "GameArea.h"
+#include "VisualGameArea.h"
 #include "GameScoreArea.h"
 #include "GameSettingsMessageBox.h"
 
@@ -18,13 +18,13 @@ private:
     Ui::MainWindow *ui;
     QWidget* window;
     QVBoxLayout* layout;
-    GameArea& gameArea;
+    VisualGameArea& gameArea;
     GameScoreArea& scoreArea;
-    IGameEngine* engine;
+    GameEngine* engine;
 public:
-    MainWindow(GameArea& gameArea, GameScoreArea& scoreArea, QWidget *parent = nullptr);
+    MainWindow(VisualGameArea& gameArea, GameScoreArea& scoreArea, QWidget *parent = nullptr);
     ~MainWindow();
-    void setGameEngine(IGameEngine* engine);
+    void setGameEngine(GameEngine* engine);
     virtual void updateCondition() override;
     virtual void clearCondition() override;
     virtual void newGameStarted() override;

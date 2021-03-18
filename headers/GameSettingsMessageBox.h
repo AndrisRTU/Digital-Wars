@@ -4,8 +4,9 @@
 #include <QMessageBox>
 #include "IGameSettingsBox.h"
 #include "IGameScene.h"
-#include "IngameAI.h"
+//#include "IngameAI.h"
 #include "IGameStatsListener.h"
+#include "IngameAI.h"
 
 class GameSettingsMessageBox : public QMessageBox, public IGameSettingsBox {
 private:
@@ -16,14 +17,14 @@ private:
     std::unique_ptr<QComboBox> firstTurnBox;
     std::unique_ptr<QComboBox> boardSizeBox;
     IGameScene& newGameObject;
-    IIngameAI& AI;
+    IngameAI& AI;
     IGameStatsListener& statsListener;
 private slots:
     void setBoardSize(int index);
     void setDifficulty();
     void setFirstTurn(int index);
 public:
-    GameSettingsMessageBox(IGameScene& newGameObject, IIngameAI& AI, IGameStatsListener& statsListener);
+    GameSettingsMessageBox(IGameScene& newGameObject, IngameAI& AI, IGameStatsListener& statsListener);
     int getBoardSize();
     int getDifficulty();
     NewGameState getFirstTurn();

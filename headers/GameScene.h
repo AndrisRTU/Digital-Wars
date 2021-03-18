@@ -4,6 +4,7 @@
 #include "GameCondition.h"
 #include "IGameScene.h"
 #include <memory>
+#include "IGamePositionReceiver.h"
 
 class GameScene : public IGameScene {
 private:

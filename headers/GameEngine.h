@@ -1,24 +1,24 @@
 #ifndef GAMEENGINE_H
 #define GAMEENGINE_H
 #include "GameScene.h"
-#include "IGameEngine.h"
-#include "IngameAI.h"
 #include "IGameStatsListener.h"
 #include "IGameSettingsBox.h"
+#include <QThread>
 
-class GameEngine : public IGameEngine {
+class GameEngine : public QObject {
+    Q_OBJECT
 private:
     GameScene& scene;
-    IngameAI& AI;
+    QThread& AI;
     IGameStatsListener& statsListener;
     IGameSettingsBox& msgBox;
+    IGamePositionReceiver& visualReceiver;
     bool checkForMoves();
     using Position = std::pair<uint8_t, uint8_t>;
-    void updateScene(Position position);
 public:
-    GameEngine(GameScene& scene, IngameAI& AI, IGameStatsListener& statsListener, IGameSettingsBox& msgBox);
-    virtual void cellSelected(Position position) override;
-    virtual void newGameStarted() override;
+    GameEngine(GameScene& scene, QThread& AI, IGameStatsListener& statsListener, IGameSettingsBox& msgBox, IGamePositionReceiver& visualReceiver);
+    void cellSelected(Position position);
+    void newGameStarted();
 };
 
 #endif // GAMEENGINE_H

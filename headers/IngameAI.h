@@ -1,24 +1,30 @@
-#ifndef INGAMEAI_H
-#define INGAMEAI_H
-#include "IIngameAI.h"
+#ifndef IngameAI_H
+#define IngameAI_H
+#include <QThread>
+#include <utility>
+#include "Node.h"
 #include "IGamePositionReceiver.h"
 #include "GameScene.h"
-#include "Node.h"
+#include "VisualGameArea.h"
 
-class IngameAI : public IIngameAI {
+class IngameAI : public QObject {
+    Q_OBJECT
 private:
     uint8_t difficulty;
     uint8_t foresightCount;
     const GameScene& scene;
-    IGamePositionReceiver& receiver;
+    VisualGameArea& receiver;
     int16_t scoreDifferenceHeuristic(const Node& node);
     int16_t NodeSequenceHeuristic(const Node& node, uint8_t depth);
     int16_t minimax(const Node& node, uint8_t depth, bool isMax, AlphaBetaModule alphaBeta);
     using Position = std::pair<uint8_t, uint8_t>;
     void addNode(Node& node, uint8_t depth);
 public:
-    IngameAI(uint8_t difficulty, const GameScene& scene, IGamePositionReceiver& receiver);
-    virtual void setDifficulty(uint8_t difficulty) override;
-    virtual void makeMove() override;
+    IngameAI(uint8_t difficulty, const GameScene& scene, VisualGameArea& receiver);
+    void calculatePosition();
+    void setDifficulty(uint8_t difficulty);
+signals:
+    void positionCalculated(Position position);
 };
-#endif // INGAMEAI_H
+
+#endif // IngameAI_H

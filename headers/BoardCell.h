@@ -5,23 +5,21 @@
 #include "IBoard.h"
 #include <QPropertyAnimation>
 #include <QGraphicsOpacityEffect>
-#include "IGameEngine.h"
 #include "GameEnums.h"
 #include "IGameConditionMembers.h"
 
 class BoardCell : public QPushButton {
     Q_OBJECT
 private:
-    const GameCell& cell;
     const IGameConditionMembers& gameCondition;
-    IGameEngine& listener;
     std::unique_ptr<QPropertyAnimation> fadeAnimation;
     std::unique_ptr<QGraphicsOpacityEffect> opacity;
 public:
-    BoardCell(const GameCell& cell, const IGameConditionMembers& gameCondition, IGameEngine& listener);
+    const GameCell& cell;
+    BoardCell(const GameCell& cell, const IGameConditionMembers& gameCondition);
     void awake();
     void diactivate();
-    void pressed();
+    void update();
 };
 
 #endif // BOARDCELL_H
