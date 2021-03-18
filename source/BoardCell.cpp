@@ -1,9 +1,8 @@
 #include "BoardCell.h"
 
-BoardCell::BoardCell(const GameCell& cell, const IGameConditionMembers& gameCondition, IGameEngine& listener) :
+BoardCell::BoardCell(const GameCell& cell, const IGameConditionMembers& gameCondition) :
     cell(cell),
-    gameCondition(gameCondition),
-    listener(listener) {
+    gameCondition(gameCondition) {
     QString number = QString::number(cell.getNumber());
     setText(number);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -76,10 +75,6 @@ void BoardCell::diactivate() {
                         "}");
 }
 
-void BoardCell::pressed() {
-    if (cell.isSelected()) {
-        return;
-    }
+void BoardCell::update() {
     fadeAnimation->start();
-    listener.cellSelected(cell.getPosition());
 }

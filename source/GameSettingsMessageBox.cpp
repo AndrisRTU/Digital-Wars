@@ -4,7 +4,7 @@
 #include <QSpacerItem>
 #include <QPushButton>
 
-GameSettingsMessageBox::GameSettingsMessageBox(IGameScene& newGameObject, IIngameAI& AI, IGameStatsListener& statsListener) :
+GameSettingsMessageBox::GameSettingsMessageBox(IGameScene& newGameObject, IngameAI& AI, IGameStatsListener& statsListener) :
     newGameObject(newGameObject),
     AI(AI),
     statsListener(statsListener) {

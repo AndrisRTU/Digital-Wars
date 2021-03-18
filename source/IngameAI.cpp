@@ -5,18 +5,17 @@ int getElementPlainVector(int x, int y, int size) {
     return x * size + y;
 }
 
-IngameAI::IngameAI(uint8_t difficulty, const GameScene& scene, IGamePositionReceiver& receiver) :
-    difficulty(difficulty),
+IngameAI::IngameAI(uint8_t difficulty, const GameScene& scene, VisualGameArea& receiver) :
+    foresightCount(foresightCount),
     scene(scene),
-    receiver(receiver),
-    foresightCount(difficulty) {
+    receiver(receiver) {
+
 }
 
 void IngameAI::setDifficulty(uint8_t difficulty) {
     this->difficulty = difficulty;
     foresightCount = difficulty;
 }
-
 
 int16_t IngameAI::scoreDifferenceHeuristic(const Node &node) {
     return node.condition.getAIScore() - node.condition.getPlayerScore();
@@ -42,6 +41,7 @@ int16_t IngameAI::NodeSequenceHeuristic(const Node& node, uint8_t depth) {
     if (node.condition.getPlayerScore() > node.condition.getAIScore()) {
         return -999;
     }
+    return 0;
 }
 
 int16_t IngameAI::minimax(const Node& node, uint8_t depth, bool isMax, AlphaBetaModule alphaBeta) {
@@ -121,7 +121,7 @@ void IngameAI::addNode(Node& node, uint8_t depth) {
     }
 }
 
-void IngameAI::makeMove() {
+void IngameAI::calculatePosition() {
     const int size = scene.getBoard().getSize();
     const auto& cells = scene.getBoard().getBoard();
 
@@ -138,7 +138,7 @@ void IngameAI::makeMove() {
 
     /*
     std::future<bool> isWaiting = std::async(std::launch::async, [](){
-        std::this_thread::sleep_for(std::chrono::milliseconds(150));
+        std::this_thread::sleep_for(std::chrono::milliseconds(300));
         return true;
     });
     */
@@ -162,7 +162,9 @@ void IngameAI::makeMove() {
         }
     }
 
+    node.reset();
+
     //isWaiting.get();
 
-    receiver.receivePosition(position);
+    emit positionCalculated(position);
 }

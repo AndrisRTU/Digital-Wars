@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include <memory>
 
-MainWindow::MainWindow(GameArea& gameArea, GameScoreArea& scoreArea, QWidget *parent) :
+MainWindow::MainWindow(VisualGameArea& gameArea, GameScoreArea& scoreArea, QWidget *parent) :
     gameArea(gameArea),
     scoreArea(scoreArea),
     QMainWindow(parent),
@@ -24,7 +24,7 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::setGameEngine(IGameEngine* engine) {
+void MainWindow::setGameEngine(GameEngine* engine) {
     this->engine = engine;
 }
 

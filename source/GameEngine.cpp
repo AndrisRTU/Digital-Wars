@@ -1,10 +1,12 @@
 #include "GameEngine.h"
 
-GameEngine::GameEngine(GameScene& scene, IngameAI& AI, IGameStatsListener& statsListener, IGameSettingsBox& msgBox) :
+GameEngine::GameEngine(GameScene& scene, QThread& AI, IGameStatsListener& statsListener, IGameSettingsBox& msgBox, IGamePositionReceiver& visualReceiver) :
     scene(scene),
     AI(AI),
     statsListener(statsListener),
-    msgBox(msgBox) {
+    msgBox(msgBox),
+    visualReceiver(visualReceiver) {
+
 }
 
 bool GameEngine::checkForMoves() {
@@ -28,10 +30,15 @@ bool GameEngine::checkForMoves() {
     return false;
 }
 
-void GameEngine::updateScene(Position position) {
+void GameEngine::cellSelected(Position position) {
     const int8_t x = position.first;
     const int8_t y = position.second;
     std::vector<std::vector<GameCell>>& cells = scene.getBoard().getBoard();
+    if (cells[x][y].isSelected()) {
+        return;
+    }
+
+    visualReceiver.receivePosition(position);
 
     scene.getGameConditionChanger().scoreChanged(cells[x][y].pick());
     statsListener.clearCondition();
@@ -39,10 +46,6 @@ void GameEngine::updateScene(Position position) {
     scene.getGameConditionChanger().positionChanged(position);
     scene.getGameConditionChanger().movementChanged();
     statsListener.updateCondition();
-}
-
-void GameEngine::cellSelected(Position position) {
-    updateScene(position);
 
     if (!checkForMoves()) {
         scene.gameEnded();
@@ -52,12 +55,12 @@ void GameEngine::cellSelected(Position position) {
     }
 
     if (scene.getGameConditionMembers().getTurn() == GameTurn::AITurn) {
-        AI.makeMove();
+        AI.start();
     }
 }
 
 void GameEngine::newGameStarted() {
     if (scene.getGameConditionMembers().getTurn() == GameTurn::AITurn) {
-        AI.makeMove();
+        AI.start();
     }
 }
