@@ -18,7 +18,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Board.cpp \
     BoardCell.cpp \
-    GameArea.cpp \
     GameCell.cpp \
     GameCondition.cpp \
     GameEngine.cpp \
@@ -29,12 +28,12 @@ SOURCES += \
     MainWindow.cpp \
     Node.cpp \
     RandomGenerator.cpp \
+    VisualGameArea.cpp \
     main.cpp
 
 HEADERS += \
     Board.h \
     BoardCell.h \
-    GameArea.h \
     GameCell.h \
     GameCondition.h \
     GameEngine.h \
@@ -45,7 +44,6 @@ HEADERS += \
     IBoard.h \
     IGameConditionChanger.h \
     IGameConditionMembers.h \
-    IGameEngine.h \
     IGamePositionReceiver.h \
     IGameScene.h \
     IGameSettingsBox.h \
@@ -54,7 +52,8 @@ HEADERS += \
     IngameAI.h \
     MainWindow.h \
     Node.h \
-    RandomGenerator.h
+    RandomGenerator.h \
+    VisualGameArea.h
 
 FORMS += \
     mainwindow.ui
