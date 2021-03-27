@@ -6,7 +6,8 @@ int getElementPlainVector(int x, int y, int size) {
 }
 
 IngameAI::IngameAI(uint8_t difficulty, const GameScene& scene) :
-    foresightCount(foresightCount),
+    difficulty(difficulty),
+    foresightCount(difficulty),
     scene(scene) {
 
 }
@@ -28,9 +29,6 @@ int16_t IngameAI::NodeSequenceHeuristic(const Node& node, uint8_t depth) {
     while (true) {
         if (!parentNode->parentNode) {
             break;
-        }
-        if (parentNode->openNodes.size() != 1) {
-            return 0;
         }
         parentNode = parentNode->parentNode;
     }
@@ -149,7 +147,7 @@ void IngameAI::calculatePosition() {
     addNode(*node, 0);
     std::vector<int16_t> nodeValues;
     for (const auto& availableNode : node->childNodes) {
-        nodeValues.push_back(minimax(*availableNode, 0, false, {-9999, 9999}));
+        nodeValues.push_back(minimax(*availableNode, 1, false, {-9999, 9999}));
     }
     Position position = node->childNodes[0]->condition.getPosition();
     int16_t bestValue = nodeValues[0];
