@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
     std::unique_ptr<VisualGameArea> gameArea = std::make_unique<VisualGameArea>(*scene);
     std::unique_ptr<GameScoreArea> scoreArea = std::make_unique<GameScoreArea>(*scene);
     std::unique_ptr<MainWindow> window = std::make_unique<MainWindow>(*gameArea, *scoreArea);
-    std::unique_ptr<IngameAI> AI = std::make_unique<IngameAI>(5, *scene, *gameArea);
+    std::unique_ptr<IngameAI> AI = std::make_unique<IngameAI>(5, *scene);
     std::unique_ptr<GameSettingsMessageBox> gameSettingsBox = std::make_unique<GameSettingsMessageBox>(*scene, *AI, *window);
     std::unique_ptr<QThread> thread = std::make_unique<QThread>();
     std::unique_ptr<GameEngine> engine = std::make_unique<GameEngine>(*scene, *thread, *window, *gameSettingsBox, *gameArea);

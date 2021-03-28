@@ -1,5 +1,5 @@
 #include "IngameAI.h"
-#include <future>
+//#include <future>
 
 int getElementPlainVector(int x, int y, int size) {
     return x * size + y;
@@ -22,15 +22,8 @@ int16_t IngameAI::scoreDifferenceHeuristic(const Node &node) {
 }
 
 int16_t IngameAI::NodeSequenceHeuristic(const Node& node, uint8_t depth) {
-    if (!node.parentNode || depth == foresightCount) {
+    if (depth == foresightCount) {
         return 0;
-    }
-    const Node* parentNode = node.parentNode;
-    while (true) {
-        if (!parentNode->parentNode) {
-            break;
-        }
-        parentNode = parentNode->parentNode;
     }
     if (node.condition.getAIScore() > node.condition.getPlayerScore()) {
         return 999 / depth;
@@ -86,7 +79,6 @@ void IngameAI::addNode(Node& node, uint8_t depth) {
                 std::unique_ptr<Node> newNode = std::make_unique<Node>();
                 newNode->openNodes = node.openNodes;
                 newNode->condition = node.condition;
-                newNode->addParentNode(node);
                 newNode->openNodes[getElementPlainVector(x, i, size)] = false;
                 const int8_t number = scene.getBoard().getBoard()[x][i].getNumber();
                 newNode->condition.scoreChanged(number);
@@ -104,7 +96,6 @@ void IngameAI::addNode(Node& node, uint8_t depth) {
                 std::unique_ptr<Node> newNode = std::make_unique<Node>();
                 newNode->openNodes = node.openNodes;
                 newNode->condition = node.condition;
-                newNode->addParentNode(node);
                 newNode->openNodes[getElementPlainVector(i, y, size)] = false;
                 const int8_t number = scene.getBoard().getBoard()[i][y].getNumber();
                 newNode->condition.scoreChanged(number);
@@ -141,7 +132,6 @@ void IngameAI::calculatePosition() {
     */
 
     std::unique_ptr<Node> node = std::make_unique<Node>();
-    node->parentNode = nullptr;
     node->openNodes = openNodes;
     node->condition = scene.getGameCondition();
     addNode(*node, 0);
