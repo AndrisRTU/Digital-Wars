@@ -33,10 +33,10 @@ int16_t IngameAI::NodeSequenceHeuristic(const Node& node, uint8_t depth) {
         parentNode = parentNode->parentNode;
     }
     if (node.condition.getAIScore() > node.condition.getPlayerScore()) {
-        return 999;
+        return 999 / depth;
     }
     if (node.condition.getPlayerScore() > node.condition.getAIScore()) {
-        return -999;
+        return -999 / depth;
     }
     return 0;
 }
