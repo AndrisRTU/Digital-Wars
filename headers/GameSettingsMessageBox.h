@@ -4,7 +4,6 @@
 #include <QMessageBox>
 #include "IGameSettingsBox.h"
 #include "IGameScene.h"
-//#include "IngameAI.h"
 #include "IGameStatsListener.h"
 #include "IngameAI.h"
 
